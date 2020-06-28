@@ -21,6 +21,60 @@ posts = [
     }
 ]
 
+from azure.cosmos import exceptions, CosmosClient, PartitionKey
+from flaskblog import family
+import requests
+import json
+
+# Initialize the Cosmos client
+endpoint = "https://neha-ashna-sql.documents.azure.com:443/"
+key = 'OHGmnmv3z53vl7kn2r17rN9Suu20osDAfl4ALISjWO58biTjiLuldIdfsRdBA6IRnZFcczu7nrSEpHry6rLZew=='
+
+# <create_cosmos_client>
+client = CosmosClient(endpoint, key)
+# </create_cosmos_client>
+
+# Create a database
+# <create_database_if_not_exists>
+database_name = 'AshnaNehaRestaurants'
+database = client.create_database_if_not_exists(id=database_name)
+# </create_database_if_not_exists>
+
+# Create a container
+# Using a good partition key improves the performance of database operations.
+# <create_container_if_not_exists>
+container_name = 'Restaurants'
+container = database.create_container_if_not_exists(
+    id=container_name, 
+    partition_key=PartitionKey(path="/name"),
+    offer_throughput=400
+)
+# </create_container_if_not_exists>
+
+
+# Add items to the container
+family_items_to_create = [family.thaiandnoodleoutlet(), family.piada(), family.allindia()]
+
+ # <create_item>
+for family_item in family_items_to_create:
+    try:
+        container.create_item(body=family_item)
+    except:
+        print('exists already')
+# </create_item>
+
+
+query = { 'query': 'SELECT * FROM server s' }    
+
+options = {} 
+options['enableCrossPartitionQuery'] = True
+options['maxItemCount'] = 2
+
+container = client.get_database_client("AshnaNehaRestaurants").get_container_client("Restaurants")
+result_iterable = container.query_items(query='SELECT * FROM Families f WHERE f.name="Piada"', enable_cross_partition_query=True)
+results = list(result_iterable)
+
+print(results)
 
 @app.route("/")
 @app.route("/home")
