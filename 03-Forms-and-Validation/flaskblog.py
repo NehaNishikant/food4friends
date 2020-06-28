@@ -65,18 +65,18 @@ app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
 
 posts = [
     {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018',
+        'author': 'Food4Friends',
+        'title': 'Thai and Noodle Outlet',
+        'content': 'Click above to learn more and/or donate',
+        'date_posted': 'June 28, 2020',
         'post_id': 1,
         'address': address1
     },
     {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018',
+        'author': 'Food4Friends',
+        'title': 'Piada',
+        'content': 'Click above to learn more and/or donate',
+        'date_posted': 'June 28, 2020',
         'post_id': 2,
         'address': address2
     }
@@ -90,8 +90,13 @@ def home():
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title='About')
+    content = "Hey there! Welcome to Food4Friends by Ashna Mediratta and Neha Nishikant. We launched this project in response to Covid19. Due to the virus, food insecurity as increased. On the other hand, local businesses are suffering from less traffic. We created Food4Friends to harness the power of the people to fix both problems by bringing them together! You can pick your favorite local restaurant and buy a meal from them which will automatically be donated to a nearby soupkitchen. It's a Win-Win scenario :) Please consider donating!"
+    return render_template('about.html', title='About', content=content)
 
+
+@app.route("/donated")
+def donate():
+    return render_template('donate.html')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -118,9 +123,11 @@ def post(post_id):
     #IMPORTANT query in the title and the content of the post here!!!
     if (post_id == 1):
         title = "Thai and Noodle Outlet"
+        content = "Featuring delicious noodles, soups, and more!"
     if (post_id == 2):
         title = "Piada"
-    return render_template('post.html', title=title, content="post")
+        content = "Authentic italian wraps, pastas, and salads!"
+    return render_template('post.html', title=title, content=content)
 
 
 if __name__ == '__main__':
