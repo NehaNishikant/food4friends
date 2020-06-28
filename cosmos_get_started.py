@@ -62,7 +62,10 @@ print('Query returned {0} items. Operation consumed {1} request units'.format(le
 
 
 from flask import Flask
+from flask import jsonify
+from flask import Flask, render_template, url_for
 app = Flask(__name__)
+
 @app.route("/")
 
 def index():
@@ -110,4 +113,18 @@ def index():
     }
 
     delivery_req = requests.post(url2, params=delivery_params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''))
-    return "Hello World!"
+    return "Hello world"
+    return delivery_req.json()
+
+@app.route("/home")
+
+def home():
+
+    return render_template('home.html')#, posts=posts)
+
+
+@app.route("/about")
+
+def about():
+
+    return render_template('about.html', title='About')
