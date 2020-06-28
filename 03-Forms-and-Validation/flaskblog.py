@@ -126,6 +126,8 @@ def post(post_id):
         content = "Featuring delicious noodles, soups, and more!"
     if (post_id == 2):
         title = "Piada"
+        content = "Authentic italian wraps, pastas, and salads!"
+
     url1="https://api.postmates.com/v1/customers/cus_MjTrLMXWncD3Rk/delivery_quotes"
     pickup_address ="9 Bernadette Circle, Monmouth Junction, 08852"
     dropoff_address = "30 Providence Blvd, Kendall Park NJ, 08824"
@@ -140,7 +142,7 @@ def post(post_id):
     var = quote_req.json()
     w = var['fee']
 
-    return render_template('post.html', title=title, content="post", cost = w)
+    return render_template('post.html', title=title, content=content, cost = w)
 
 
 if __name__ == '__main__':
