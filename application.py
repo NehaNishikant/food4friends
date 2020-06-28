@@ -5,6 +5,7 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
+'''
 import requests
 import json
 
@@ -29,3 +30,4 @@ example = data["value1"]["value2"]
 
 print(example)
 
+'''
