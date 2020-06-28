@@ -1,25 +1,4 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm, LoginForm
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018',
-        'post_id': 1
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018',
-        'post_id': 2
-    }
-]
 
 from azure.cosmos import exceptions, CosmosClient, PartitionKey
 import family
@@ -73,8 +52,35 @@ options['maxItemCount'] = 2
 container = client.get_database_client("AshnaNehaRestaurants").get_container_client("Restaurants")
 result_iterable = container.query_items(query='SELECT * FROM Families f WHERE f.name="Piada"', enable_cross_partition_query=True)
 results = list(result_iterable)
+address1 = results[0]['address']
+address2 = results[1]['address']
 
-print(results[0]['address'])
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
+
+
+
+posts = [
+    {
+        'author': 'Corey Schafer',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date_posted': 'April 20, 2018',
+        'post_id': 1
+        'address': address1
+    },
+    {
+        'author': 'Jane Doe',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date_posted': 'April 21, 2018',
+        'post_id': 2
+        'address': address2
+    }
+]
 
 @app.route("/")
 @app.route("/home")
