@@ -22,7 +22,7 @@ posts = [
 ]
 
 from azure.cosmos import exceptions, CosmosClient, PartitionKey
-from flaskblog import family
+import family
 import requests
 import json
 
@@ -74,7 +74,7 @@ container = client.get_database_client("AshnaNehaRestaurants").get_container_cli
 result_iterable = container.query_items(query='SELECT * FROM Families f WHERE f.name="Piada"', enable_cross_partition_query=True)
 results = list(result_iterable)
 
-print(results)
+print(results[0]['address'])
 
 @app.route("/")
 @app.route("/home")
