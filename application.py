@@ -33,13 +33,13 @@ def index():
     dropoff_name = "Neha"
     dropoff_phone_number = "6098656754"
     manifest = "test items"
-    manifest_item = {
+    manifest_items = [{
       "quantity": 1,
       "size": "medium",
       "name": "test"
-    }
-    manifest_items = []
-    manifest_items.append(manifest_item)
+    }]
+    #manifest_items = []
+    #manifest_items.append(manifest_item)
 
     delivery_params = {
       "dropoff_address": dropoff_address,
