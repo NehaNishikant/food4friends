@@ -50,7 +50,7 @@ options['enableCrossPartitionQuery'] = True
 options['maxItemCount'] = 2
 
 container = client.get_database_client("AshnaNehaRestaurants").get_container_client("Restaurants")
-result_iterable = container.query_items(query='SELECT * FROM Families f WHERE f.name="Piada"', enable_cross_partition_query=True)
+result_iterable = container.query_items(query='SELECT * FROM Families f', enable_cross_partition_query=True)
 results = list(result_iterable)
 address1 = results[0]['address']
 address2 = results[1]['address']
@@ -69,7 +69,7 @@ posts = [
         'title': 'Blog Post 1',
         'content': 'First post content',
         'date_posted': 'April 20, 2018',
-        'post_id': 1
+        'post_id': 1,
         'address': address1
     },
     {
@@ -77,7 +77,7 @@ posts = [
         'title': 'Blog Post 2',
         'content': 'Second post content',
         'date_posted': 'April 21, 2018',
-        'post_id': 2
+        'post_id': 2,
         'address': address2
     }
 ]
