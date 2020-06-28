@@ -60,11 +60,12 @@ request_charge = container.client_connection.last_response_headers['x-ms-request
 print('Query returned {0} items. Operation consumed {1} request units'.format(len(items), request_charge))
 # </query_items>
 
-
+'''
 from flask import Flask
 from flask import jsonify
 from flask import Flask, render_template, url_for
-app = Flask(__name__)
+#app = Flask(__name__)
+from flaskblog import app
 
 @app.route("/")
 
@@ -128,3 +129,4 @@ def home():
 def about():
 
     return render_template('about.html', title='About')
+    '''
