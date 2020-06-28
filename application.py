@@ -8,7 +8,10 @@ def hello():
 import requests
 import json
 
-url="http://example.com/index.php"
+url1="https://api.postmates.com/v1/customers/cus_MjTrLMXWncD3Rk/delivery_quotes"
+url2="https://api.postmates.com/v1/customers/cus_MjTrLMXWncD3Rk/deliveries"
+
+#https://postmates.com/developer/docs/#resources__delivery__create-delivery
 
 r = requests.post(url, params={'q': 'raspberry pi request'})
 
@@ -25,3 +28,4 @@ data = r.json()
 example = data["value1"]["value2"]
 
 print(example)
+
