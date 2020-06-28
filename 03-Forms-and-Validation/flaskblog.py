@@ -120,7 +120,21 @@ def post(post_id):
         title = "Thai and Noodle Outlet"
     if (post_id == 2):
         title = "Piada"
-    return render_template('post.html', title=title, content="post")
+    url1="https://api.postmates.com/v1/customers/cus_MjTrLMXWncD3Rk/delivery_quotes"
+    pickup_address ="9 Bernadette Circle, Monmouth Junction, 08852"
+    dropoff_address = "30 Providence Blvd, Kendall Park NJ, 08824"
+    quote_params = {
+        "dropoff_address": dropoff_address,
+        "pickup_address": pickup_address
+    }
+    quote_req = requests.post(url1, params=quote_params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''))
+    if quote_req.status_code != 200:
+        print("Error:", quote_req.status_code)
+
+    var = quote_req.json()
+    w = var['fee']
+
+    return render_template('post.html', title=title, content="post", cost = w)
 
 
 if __name__ == '__main__':
