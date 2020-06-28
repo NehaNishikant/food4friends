@@ -116,7 +116,11 @@ def login():
 @app.route("/post/<int:post_id>")
 def post(post_id):
     #IMPORTANT query in the title and the content of the post here!!!
-    return render_template('post.html', title="post.title", content="post")
+    if (post_id == 1):
+        title = "Thai and Noodle Outlet"
+    if (post_id == 2):
+        title = "Piada"
+    return render_template('post.html', title=title, content="post")
 
 
 if __name__ == '__main__':
