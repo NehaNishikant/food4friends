@@ -33,25 +33,16 @@ def index():
     dropoff_name = "Neha"
     dropoff_phone_number = "6098656754"
     manifest = "test items"
+    '''
     manifest_items = [{
       "quantity": 1,
       "size": "medium",
       "name": "test"
     }]
-    #manifest_items = []
+    '''
+    manifest_items = []
     #manifest_items.append(manifest_item)
 
-    delivery_params = {
-      "dropoff_address": dropoff_address,
-      "dropoff_name": dropoff_name,
-      "dropoff_phone_number": dropoff_phone_number,
-      "manifest": manifest,
-      "manifest_items": manifest_items,
-      "pickup_address": pickup_address,
-      "pickup_name": pickup_name,
-      "pickup_phone_number": pickup_phone_number,
-      "quote_id": quote_id
-    }
     delivery_req = requests.post(url2, params=delivery_params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''))
     return delivery_req.json()
 
