@@ -13,19 +13,47 @@ def index():
     #https://postmates.com/developer/docs/#resources__delivery__create-delivery
   
   #This is the API KEY: ea6f0581-b447-459e-98cc-5c7b22a27335
-
-    params = {
-      "dropoff_address": "30 Providence Blvd, Kendall Park NJ, 08824",
-      "pickup_address": "9 Bernadette Circle, Monmouth Junction, 08852"
+    
+    pickup_address = "9 Bernadette Circle, Monmouth Junction, 08852"
+    dropoff_address = "30 Providence Blvd, Kendall Park NJ, 08824"
+    quote_params = {
+      "dropoff_address": dropoff_address,
+      "pickup_address": pickup_address
     }
 
-    r = requests.post(url1, params=params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''));
+    quote_req = requests.post(url1, params=quote_params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''))
 
-    if r.status_code != 200:
-      print("Error:", r.status_code)
+    if quote_req.status_code != 200:
+      print("Error:", quote_req.status_code)
 
-    data = r.json()
-    return data
+    quote_id = quote_req.json()["id"]
+
+    pickup_name = "Ashna's house"
+    pickup_phone_number = "7324229194"
+    dropoff_name = "Neha"
+    dropoff_phone_number = "6098656754"
+    manifest = "test items"
+    manifest_item = {
+      "quantity": 1,
+      "size": "medium",
+      "name": "test"
+    }
+    manifest_items = []
+    manifest_items.append(manifest_item)
+
+    delivery_params = {
+      "dropoff_address": dropoff_address,
+      "dropoff_name": dropoff_name,
+      "dropoff_phone_number": dropoff_phone_number,
+      "manifest": manifest,
+      "manifest_items": manifest_items,
+      "pickup_address": pickup_address,
+      "pickup_name": pickup_name,
+      "pickup_phone_number": pickup_phone_number,
+      "quote_id": quote_id
+    }
+    delivery_req = requests.post(url2, params=delivery_params, auth=('ea6f0581-b447-459e-98cc-5c7b22a27335', ''))
+    return delivery_req.json()
 
 
 '''
